@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/useraccountdb
+    username: ilqar
+    password : 12345
+  jpa:
+    hibernate:
+      ddl-auto: update
+
