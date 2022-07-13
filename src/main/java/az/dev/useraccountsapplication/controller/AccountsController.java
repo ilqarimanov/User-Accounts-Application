@@ -3,8 +3,6 @@ package az.dev.useraccountsapplication.controller;
 import az.dev.useraccountsapplication.dto.response.CommonResponse;
 import az.dev.useraccountsapplication.dto.request.AccountRequest;
 import az.dev.useraccountsapplication.service.AccountService;
-import az.dev.useraccountsapplication.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/accounts")
 public class AccountsController {
 
-    private final UserService userService;
 
     private final AccountService accountService;
 
 
-    public AccountsController(UserService userService, AccountService accountService) {
-        this.userService = userService;
+    public AccountsController( AccountService accountService) {
         this.accountService = accountService;
 
     }

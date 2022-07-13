@@ -3,33 +3,24 @@ package az.dev.useraccountsapplication.service.impl;
 import az.dev.useraccountsapplication.dto.response.CommonResponse;
 import az.dev.useraccountsapplication.dto.response.ErrorResponse;
 import az.dev.useraccountsapplication.entity.UserEntity;
+import az.dev.useraccountsapplication.enums.ErrorCodeEnum;
+import az.dev.useraccountsapplication.exception.CustomNotFoundException;
 import az.dev.useraccountsapplication.repository.UserRepository;
 import az.dev.useraccountsapplication.dto.request.UserRequest;
 import az.dev.useraccountsapplication.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.Optional;
 
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+
     private UserService userService;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    private Map<String, String> users = new HashMap<>();
 
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -42,6 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
         UserEntity user = new UserEntity();
+
         user.setUsername(userRequest.getUsername());
         user.setPassword(userRequest.getPassword());
         user.setName(userRequest.getName());
@@ -63,28 +55,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public CommonResponse signIn(UserRequest userRequest) {
-        UserEntity userEntity = userRepository.findUserEntitiesByUsernameAndPassword(userRequest.getUsername(), userRequest.getPassword());
-        if (userEntity == null) {
-            ErrorResponse errorResponse = new ErrorResponse();
-            errorResponse.setCode(150);
-            errorResponse.setMessage("User Not Found");
-            return new CommonResponse(errorResponse);
-        }
+        UserEntity userEntity = userRepository.
+                findUserEntitiesByUsernameAndPassword(userRequest.getUsername(), userRequest.getPassword())
+                .orElseThrow(() -> new CustomNotFoundException(ErrorCodeEnum.USER_NOT_FOUND));
+
+
         return new CommonResponse(ErrorResponse.getSuccessMessage());
-    }
 
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (users.containsKey(username)) {
-            return new User(username, users.get(username), new ArrayList<>());
-        }
-        throw new UsernameNotFoundException(username);
-    }
-
-    @PostConstruct
-    public void init() {
-        users.put("admin", passwordEncoder.encode("12345"));
     }
 
 
