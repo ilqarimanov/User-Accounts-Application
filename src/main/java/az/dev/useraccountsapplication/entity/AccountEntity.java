@@ -24,6 +24,7 @@ public class AccountEntity {
     private Double balance;
 
 
+
     public Long getId() {
         return id;
     }
