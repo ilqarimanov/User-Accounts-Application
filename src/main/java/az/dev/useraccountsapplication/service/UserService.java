@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface UserService {
     CommonResponse signUp(UserRequest userRequest);
 
-    Optional<UserEntity> findByUsername(String username);
     CommonResponse signIn(UserRequest userRequest);
 
 
