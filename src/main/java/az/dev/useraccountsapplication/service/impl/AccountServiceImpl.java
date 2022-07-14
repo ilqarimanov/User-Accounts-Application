@@ -65,41 +65,6 @@ public class AccountServiceImpl implements AccountService {
 }
 
 
-//            return accountRepository.findAccountEntitiesByUserId(accountList(userId));
-
-//        List<AccountEntity> accountEntityList = accountRepository.findAccountEntitiesByUserId(userId);
-//        if (accountEntityList.size() == 0 || accountEntityList == null) {
-//            Status status = new Status();
-//            status.setCode(123);
-//            status.setMessage("Account is Empty");
-//            return new CommonResponse<>(status);
-//        }
-//        return new CommonResponse<>(Status.getSuccessMessage(), accountEntityList);
-
-
-//        List<AccountEntity> account = accountRepository.findAccountEntitiesByUserId(accountRequest.getUserId());
-//        AccountEntity accountEntity = new AccountEntity();
-//        accountEntity.setAccountNumber(accountRequest.getAccountNumber());
-//        accountEntity.setBalance(accountRequest.getBalance());
-//
-//        return  new CommonResponse(Status.getSuccessMessage());
-//        ------------------------------------------------------------------------------------------------
-
-//        AccountEntity accountEntity = new AccountEntity();
-//        accountEntity.setAccountNumber(accountEntity.getAccountNumber());
-//        accountEntity.setBalance(accountEntity.getBalance());
-
-//        ------------------------------------------------------------------------------------------------
-//
-
-//        return accountRepository.findById(userId)
-//                .map(accountEntity -> new CommonResponse(Status.getSuccessMessage(), "ok"))
-//                .orElseThrow(() -> new RuntimeException("Product with id " + userId + "was not founxd "));
-
-//        ------------------------------------------------------------------------------------------------
-//        accountEntity.setAccountNumber(accountEntity.getAccountNumber());
-//        accountEntity.setBalance(accountEntity.getBalance());
-
 
 
 

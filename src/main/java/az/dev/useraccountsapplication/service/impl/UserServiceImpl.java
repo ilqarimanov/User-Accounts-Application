@@ -11,7 +11,6 @@ import az.dev.useraccountsapplication.service.UserService;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 
 @Service
@@ -47,10 +46,7 @@ public class UserServiceImpl implements UserService {
         return new CommonResponse(ErrorResponse.getSuccessMessage());
     }
 
-    @Override
-    public Optional<UserEntity> findByUsername(String username) {
-        return Optional.empty();
-    }
+
 
 
     @Override

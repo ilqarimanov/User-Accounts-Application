@@ -1,6 +1,5 @@
 package az.dev.useraccountsapplication.entity;
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
