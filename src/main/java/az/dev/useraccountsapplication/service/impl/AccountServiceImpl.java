@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public CommonResponse accountList() {
-        List<UserEntity> userEntities = userRepository.findAll();
+        List<UserEntity> userEntities = (List<UserEntity>) userRepository.findAll();
         if (userEntities.size() == 0 || userEntities == null) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("User List is Empty");
