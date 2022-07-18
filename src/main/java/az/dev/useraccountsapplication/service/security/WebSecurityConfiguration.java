@@ -1,8 +1,8 @@
-package az.dev.useraccountsapplication.security;
+package az.dev.useraccountsapplication.service.security;
 
 
-import az.dev.useraccountsapplication.security.auth.JwtAuthenticationEntryPoint;
-import az.dev.useraccountsapplication.security.auth.JwtRequestFilter;
+import az.dev.useraccountsapplication.service.security.auth.JwtAuthenticationEntryPoint;
+import az.dev.useraccountsapplication.service.security.auth.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

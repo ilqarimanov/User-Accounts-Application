@@ -3,7 +3,7 @@ package az.dev.useraccountsapplication.controller;
 import az.dev.useraccountsapplication.dto.request.JwtRequest;
 import az.dev.useraccountsapplication.dto.request.UserRequest;
 import az.dev.useraccountsapplication.dto.response.JwtResponse;
-import az.dev.useraccountsapplication.security.auth.JwtTokenUtil;
+import az.dev.useraccountsapplication.service.security.auth.JwtTokenUtil;
 import az.dev.useraccountsapplication.service.UserService;
 import az.dev.useraccountsapplication.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,12 +35,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserRequest request) throws Exception {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        authenticate(request.getUsername(), request.getPassword());
 
         final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
+                .loadUserByUsername(request.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));

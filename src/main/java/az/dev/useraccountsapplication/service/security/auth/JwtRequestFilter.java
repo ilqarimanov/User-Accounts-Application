@@ -1,4 +1,4 @@
-package az.dev.useraccountsapplication.security.auth;
+package az.dev.useraccountsapplication.service.security.auth;
 
 import az.dev.useraccountsapplication.service.impl.UserServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
