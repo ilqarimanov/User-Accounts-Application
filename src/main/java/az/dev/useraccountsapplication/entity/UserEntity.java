@@ -2,12 +2,9 @@ package az.dev.useraccountsapplication.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.catalina.Role;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 
 
 @Entity
@@ -17,6 +14,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String username;
     @JsonIgnore

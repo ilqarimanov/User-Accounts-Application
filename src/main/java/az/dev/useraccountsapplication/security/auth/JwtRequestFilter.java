@@ -1,4 +1,4 @@
-package az.dev.useraccountsapplication.service.security.auth;
+package az.dev.useraccountsapplication.security.auth;
 
 import az.dev.useraccountsapplication.service.impl.UserServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -30,13 +30,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
 
-        final String    requestTokenHeader = request.getHeader("Authorization");
+        final String requestTokenHeader = request.getHeader("Authorization");
 
         String username = null;
         String jwtToken = null;
 
 
-            if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
@@ -45,9 +45,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
             }
-        }
-            else {
-            logger.warn("JWT Token does not begin with Bearer String");
         }
 
 

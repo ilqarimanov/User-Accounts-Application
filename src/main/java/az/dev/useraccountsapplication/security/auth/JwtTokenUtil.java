@@ -1,4 +1,4 @@
-package az.dev.useraccountsapplication.service.security.auth;
+package az.dev.useraccountsapplication.security.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

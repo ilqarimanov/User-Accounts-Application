@@ -1,14 +1,16 @@
 package az.dev.useraccountsapplication.service;
 
-import az.dev.useraccountsapplication.dto.response.CommonResponse;
 import az.dev.useraccountsapplication.dto.request.UserRequest;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 
 public interface UserService {
-    CommonResponse signUp(UserRequest userRequest);
+    ResponseEntity<?> signUp(UserRequest userRequest);
 
 
-    CommonResponse signIn(UserRequest userRequest);
+
 
 
 

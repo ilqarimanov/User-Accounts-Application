@@ -1,8 +1,8 @@
-package az.dev.useraccountsapplication.service.security;
+package az.dev.useraccountsapplication.security;
 
 
-import az.dev.useraccountsapplication.service.security.auth.JwtAuthenticationEntryPoint;
-import az.dev.useraccountsapplication.service.security.auth.JwtRequestFilter;
+import az.dev.useraccountsapplication.security.auth.JwtAuthenticationEntryPoint;
+import az.dev.useraccountsapplication.security.auth.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,9 +52,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.csrf().disable()
-
-                .authorizeRequests().antMatchers("/register","/authenticate").permitAll().
+        httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
+        httpSecurity.authorizeRequests().antMatchers("/sign-up", "/sign-in", "/h2-console/**").permitAll().
 
                 anyRequest().authenticated().and().
 
@@ -64,5 +64,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 
 }

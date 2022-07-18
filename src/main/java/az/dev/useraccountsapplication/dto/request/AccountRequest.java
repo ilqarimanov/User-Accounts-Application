@@ -1,11 +1,17 @@
 package az.dev.useraccountsapplication.dto.request;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class AccountRequest implements Serializable {
 
+
     private Long userId;
+    @NotNull
+    @NotBlank
     private String accountNumber;
+    @NotNull
     private Double balance;
 
     public Long getUserId() {

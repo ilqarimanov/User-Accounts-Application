@@ -1,8 +1,9 @@
 package az.dev.useraccountsapplication.enums;
 
-public enum ErrorCodeEnum {
+public enum ErrorCodeEnum  {
     USER_NOT_FOUND(1001, "User not found"),
-    VALIDATION_ERROR(1002,"Validation errors");
+    IS_EMPTY(1002,"is empty"),
+    ACCOUNT_NOT_FOUND(1003,"Account not found");
 
 
     private final int code;

@@ -29,20 +29,19 @@ public class ExceptionHandlerController {
     public ErrorResponse handleInputParam(MethodArgumentTypeMismatchException e) {
         String paramName = e.getParameter().getParameter().getName();
         return ErrorResponse.builder()
-                .code(ErrorCodeEnum.VALIDATION_ERROR.getCode())
-                .message(paramName + ErrorCodeEnum.VALIDATION_ERROR.getMessage())
+                .code(ErrorCodeEnum.IS_EMPTY.getCode())
+                .message(paramName + ErrorCodeEnum.IS_EMPTY.getMessage())
                 .build();
     }
 
 
-    @ExceptionHandler(MethodArgumentNotValidException.class )
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handleValidation(MethodArgumentNotValidException e){
             String fieldName = e.getBindingResult().getFieldError().getField();
 
         return ErrorResponse.builder()
-                .code(ErrorCodeEnum.VALIDATION_ERROR.getCode())
-                .message(fieldName + ErrorCodeEnum.VALIDATION_ERROR.getMessage())
+                .code(ErrorCodeEnum.IS_EMPTY.getCode())
+                .message(fieldName+" " + ErrorCodeEnum.IS_EMPTY.getMessage())
                 .build();
-
     }
 }

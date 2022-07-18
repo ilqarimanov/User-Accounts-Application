@@ -1,7 +1,6 @@
 package az.dev.useraccountsapplication.entity;
 
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
@@ -18,11 +17,8 @@ public class AccountEntity {
     @JoinColumn(name = "user_id")
     private UserEntity userId;
 
-    @NotNull
     private String accountNumber;
-    @NotNull
     private Double balance;
-
 
 
     public Long getId() {

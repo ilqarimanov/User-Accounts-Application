@@ -1,9 +1,10 @@
 package az.dev.useraccountsapplication.controller;
 
-import az.dev.useraccountsapplication.dto.request.JwtRequest;
 import az.dev.useraccountsapplication.dto.request.UserRequest;
 import az.dev.useraccountsapplication.dto.response.JwtResponse;
-import az.dev.useraccountsapplication.service.security.auth.JwtTokenUtil;
+import az.dev.useraccountsapplication.enums.ErrorCodeEnum;
+import az.dev.useraccountsapplication.exception.CustomNotFoundException;
+import az.dev.useraccountsapplication.security.auth.JwtTokenUtil;
 import az.dev.useraccountsapplication.service.UserService;
 import az.dev.useraccountsapplication.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,56 +16,43 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-//@RequestMapping("/users")
-public class UserController {
+import javax.validation.Valid;
 
+
+@RestController
+public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
     @Autowired
     private UserServiceImpl userDetailsService;
-    private final UserService userService;
 
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserRequest request) throws Exception {
 
-        authenticate(request.getUsername(), request.getPassword());
-
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(request.getUsername());
-
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+    @PostMapping(value = "/sign-in")
+    public ResponseEntity<?> signIn(@Valid @RequestBody UserRequest request) throws Exception {
+        try {
+            authenticate(request.getUsername(), request.getPassword());
+            final UserDetails userDetails = userDetailsService
+                    .loadUserByUsername(request.getUsername());
+            final String token = jwtTokenUtil.generateToken(userDetails);
+            return ResponseEntity.ok(new JwtResponse(token));
+        } catch (Exception e) {
+            throw new CustomNotFoundException(ErrorCodeEnum.USER_NOT_FOUND);
+        }
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUser(@RequestBody UserRequest user) throws Exception {
+    @PostMapping(value = "/sign-up")
+    public ResponseEntity<?> signUp(@Valid @RequestBody UserRequest user) {
         return ResponseEntity.ok(userDetailsService.signUp(user));
     }
 
-
-
-
-
-
-//    @PostMapping("/sign-up")
-//    public CommonResponse signUp(@RequestBody @Validated UserRequest userRequest) {
-//        return userService.signUp(userRequest);
-
-
-//    @PostMapping("/sign-in")
-//    public CommonResponse signIn(@RequestBody @Validated UserRequest userRequest) {
-//        return userService.signIn(userRequest);
-//    }
 
     private void authenticate(String username, String password) throws Exception {
         try {
@@ -75,6 +63,11 @@ public class UserController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
+
+
+
+
 }
 
 

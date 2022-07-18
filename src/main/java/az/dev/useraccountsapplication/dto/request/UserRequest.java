@@ -3,6 +3,7 @@ package az.dev.useraccountsapplication.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,9 +11,11 @@ import java.time.LocalDate;
 public class UserRequest implements Serializable {
 
 
-    @NotNull
+    @NotNull()
+    @NotBlank()
     private String username;
-    @NotNull
+    @NotNull()
+    @NotBlank()
     private String password;
     private String name;
     private String surname;

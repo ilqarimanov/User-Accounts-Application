@@ -1,6 +1,5 @@
 package az.dev.useraccountsapplication.controller;
 
-import az.dev.useraccountsapplication.dto.response.CommonResponse;
 import az.dev.useraccountsapplication.dto.request.AccountRequest;
 import az.dev.useraccountsapplication.service.AccountService;
 import org.springframework.http.ResponseEntity;
@@ -15,25 +14,24 @@ public class AccountsController {
     private final AccountService accountService;
 
 
-    public AccountsController( AccountService accountService) {
+    public AccountsController(AccountService accountService) {
         this.accountService = accountService;
 
     }
 
-
     @GetMapping("/accountlist")
-    public CommonResponse accountList() {
-        return accountService.accountList();
+    public ResponseEntity<?> accountList() {
+        return ResponseEntity.ok(accountService.accountList());
     }
 
 
     @PostMapping("/create-account")
-    public CommonResponse createAccount(@RequestBody @Validated AccountRequest accountRequest) {
-        return accountService.createAccount(accountRequest);
+    public ResponseEntity<?> createAccount(@RequestBody @Validated AccountRequest accountRequest) {
+        return ResponseEntity.ok(accountService.createAccount(accountRequest));
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> searchAccount(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(accountService.searchAccount(userId));
+            return ResponseEntity.ok(accountService.searchAccount(userId));
     }
 }
